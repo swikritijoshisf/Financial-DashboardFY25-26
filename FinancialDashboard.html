@@ -1,225 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>December 2025 Financial Report - Pharmacy Business Operations</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-        text-align: center;
-        }
-        h1, h4 {
-            color: #0922ad;
-        }
-        
-        h2 {
-            color: #c24210;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FY25–26 Pharmacy Financial Dashboard</title>
 
-        h3, h5 {
-            color: #050505;
-        }
-        
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-        .content-section {
-            margin-bottom: 30px;
-        }
-        .graph-section {
-            margin-top: 30px;
-        }
-        .table-container {
-            margin-top: 20px;
-        }
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-        }
-    </style>
+<style>
+:root {
+    --primary: #0922ad;
+    --secondary: #c24210;
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* ===== HEADER ===== */
+header {
+    background: linear-gradient(90deg, var(--primary), #1e40af);
+    color: #fff;
+    padding: 20px 40px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+header p {
+    margin: 5px 0 0;
+    opacity: 0.9;
+}
+
+/* ===== NAV ===== */
+nav {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0 40px;
+}
+
+nav li {
+    margin-right: 25px;
+}
+
+nav a {
+    display: block;
+    padding: 15px 0;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+nav a.active,
+nav a:hover {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+}
+
+/* ===== MAIN ===== */
+main {
+    padding: 40px;
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.card h2 {
+    margin-top: 0;
+    color: var(--secondary);
+}
+
+.card p {
+    line-height: 1.6;
+}
+
+/* ===== GRID ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* ===== IMAGES ===== */
+img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+    cursor: zoom-in;
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+.card img {
+    display: block;
+    overflow: hidden;
+}
+
+img:hover {
+    transform: scale(1.58);
+}
+
+
+/* ===== IFRAMES ===== */
+iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 12px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* ===== TABS ===== */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ===== LIGHTBOX MODAL ===== */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+}
+
+.lightbox span {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+
+<script>
+function showTab(id, el) {
+    document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+    el.classList.add("active");
+}
+
+function openLightbox(src) {
+    document.getElementById("lightbox-img").src = src;
+    document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
+</script>
 </head>
+
 <body>
 
-    <h1>December 2025 Financial Report - Pharmacy Business Operations</h1>
+<header>
+    <h1>FY25–26 Pharmacy Business Operations</h1>
+    <p>Executive Financial Review • Updated Monthly</p>
+</header>
 
-    <!-- Add an image after the header -->
-    <div class="graph-section">
-        <img src="zsfg.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
+<nav>
+    <ul>
+        <li><a href="#" class="active" onclick="showTab('overview', this)">Overview</a></li>
+        <li><a href="#" onclick="showTab('spend', this)">Spend Trends</a></li>
+        <li><a href="#" onclick="showTab('budget', this)">Budget vs Actual</a></li>
+        <li><a href="#" onclick="showTab('revenue', this)">Revenue & Margin</a></li>
+        <li><a href="#" onclick="showTab('profit', this)">Profit</a></li>
+        <li><a href="#" onclick="showTab('misc', this)">Operational Updates</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<section id="overview" class="tab-content active">
+    <div class="card">
+        <h2>Executive Overview</h2>
+        <img src="zsfg.jpg.png" onclick="openLightbox(this.src)">
     </div>
 
-    
-    <!-- Power BI Dashboard -->
-    <div class="content-section">
-        <h2>Power BI Dashboard</h2>
-        <!-- Replace 'your-embed-url' with your actual Power BI embed URL -->
-        <iframe src="In-Progress" title="Power BI Dashboard"></iframe>
+    <div class="card">
+        <h2>Enterprise Power BI Dashboard</h2>
+        <iframe src="In-Progress"></iframe>
     </div>
+</section>
 
-    <!-- Contents -->
-    <div class="content-section">
-        <h2>Contents:</h2>
-        <ul>
-            <li><a href="#spend-trends">1. Spend Trends</a></li>
-            <li><a href="#budget-vs.-actual">2. Budget vs. Actual</a></li>
-            <li><a href="#revenue">3. Revenue and Margin</a></li>
-            <li><a href="#profit">4. Profit</a></li>
-            <li><a href="#miscellaneous">5. Miscellaneous Updates</a></li>
-        </ul>
-    </div>
-
-    <!-- Spend Trends -->
-    <div class="content-section" id="spend-trends">
-        <h2>1. Spend Trends</h2>
-        <p><strong>Inpatient:</strong> A reduction in purchases was observed, primarily attributed to a $200,627.00 net 340B wholesaler credit, resulting from the correction of the 4C location code.</p>
-        <p><strong>Outpatient:</strong> Significant reduction in Specialty purchases, which is more aligned with the historical monthly average. WAC purchases decreased, contributing to overall cost containment.</p>
-        <p><strong>Walgreens:</strong> A decrease of $215,643.23 in spending was observed, with most of the reduction attributed to HIV medications and decreased spending on GLP-1 medications.</p>
-        <p><strong>Primary Care Clinics:</strong> High spending in October, mainly due to increased demand for influenza and co-administered vaccines. November data is incomplete due to missing IDB information.</p>
-        <p><strong>Registry:</strong> An increase in IP spending due to Soliant rebilling two invoices into November.</p>
-
-        <div class="table-container">
-            <h4>Table 1: Inpatient and Outpatient Purchases</h4>
-            <div class="graph-section">
-                <img src="table1.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-
-            <h4>Table 2: Contract Pharmacies and Off-site Clinic Purchases</h4>
-            <div class="graph-section">
-                <img src="table2.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-
-            <h4>Table 3: Walgreens Purchase Comparison (Dec vs Nov 2025)</h4>
-            <div class="graph-section">
-                <img src="table3.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-
-            <h4>Graph 1: Registry Monthly Spend Comparison</h4>
-            <div class="graph-section">
-                <img src="graph1.jpg.png" alt="Registry Monthly Spend Comparison">
-            </div>
+<section id="spend" class="tab-content">
+    <div class="grid">
+        <div class="card">
+            <h3>Inpatient & Outpatient Purchases</h3>
+            <img src="table1.jpg.png" onclick="openLightbox(this.src)">
+        </div>
+        <div class="card">
+            <h3>Contract Pharmacies</h3>
+            <img src="table2.jpg.png" onclick="openLightbox(this.src)">
+        </div>
+        <div class="card">
+            <h3>Walgreens Comparison</h3>
+            <img src="table3.jpg.png" onclick="openLightbox(this.src)">
+        </div>
+        <div class="card">
+            <h3>Registry Monthly Spend</h3>
+            <img src="graph1.jpg.png" onclick="openLightbox(this.src)">
         </div>
     </div>
+</section>
 
-    <!-- Budget vs Actual -->
-    <div class="content-section" id="budget-v-actual">
-        <h2>2. Budget vs Actual</h2>
-        <p>BvA data has not been updated for November. As of December, 44% of the annual budget has already been expended. Below are the current revenue performance and inpatient margins.</p>
-        <h4>Table 4: Budget vs Actual Report</h4>
-        <div class="graph-section">
-            <img src="table4.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
+<section id="budget" class="tab-content">
+    <div class="card">
+        <h2>Budget vs Actual</h2>
+        <img src="table4.jpg.png" onclick="openLightbox(this.src)">
+    </div>
+</section>
+
+<section id="revenue" class="tab-content">
+    <div class="card">
+        <h2>Revenue & Margin</h2>
+        <img src="table5.jpg.png" onclick="openLightbox(this.src)">
+    </div>
+</section>
+
+<section id="profit" class="tab-content">
+    <div class="grid">
+        <div class="card">
+            <h2>Outpatient Profit</h2>
+            <img src="table6.jpg.png" onclick="openLightbox(this.src)">
+        </div>
+        <div class="card">
+            <h2>Profit Margin FY25–26</h2>
+            <img src="graph2.jpg.png" onclick="openLightbox(this.src)">
         </div>
     </div>
+</section>
 
-    <!-- Revenue and Margin -->
-    <div class="content-section" id="revenue">
-        <h2>3. Revenue and Margin</h2>
-        <p><strong>Specialty:</strong> Specialty continues to deliver strong margins, driven by value-based reimbursement through the 340B program.</p>
-        <p><strong>Inpatient Infusion:</strong> Expected to follow similar revenue trends, but Finance is still refining reimbursement data.</p>
-
-        <h4>Table 5: Revenue YTD</h4>
-        <div class="graph-section">
-            <img src="table5.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-        </div>
+<section id="misc" class="tab-content">
+    <div class="card">
+        <h2>Operational Updates</h2>
+        <img src="graphA.jpg.png" onclick="openLightbox(this.src)">
+        <img src="tableA.jpg.png" onclick="openLightbox(this.src)">
+        <img src="graphB.jpg.png" onclick="openLightbox(this.src)">
+        <img src="tableB.jpg.png" onclick="openLightbox(this.src)">
+        <img src="tableC.jpg.png" onclick="openLightbox(this.src)">
     </div>
+</section>
 
-    <!-- Profit -->
-    <div class="content-section" id="profit">
-        <h2>4. Profit</h2>
-        <h4>Table 6: Outpatients Profit YTD</h4>
-        <div class="graph-section">
-            <img src="table6.jpg.png" alt="Financial Report Image" width="25%" style="margin-bottom: 30px;">
-            <br>
-            <h4>Graph 2: Outpatients Profit Margin FY25-26</h4>
-            <img src="graph2.jpg.png" alt="Financial Report Image" width="25%" style="margin-bottom: 30px;">
-        </div>
-    </div>
+</main>
 
-    <!-- Miscellaneous Updates -->
-    <div class="content-section" id="miscellaneous">
-        <h2>5. Miscellaneous Updates</h2>
-        <h3>Clinics</h3>
-        <ul>
-            <li>Floor stock updates in several clinics.</li>
-            <li>OBOT implementing cheaper alternative Methadone starting this week.</li>
-            <li>Switching to Menveo after the current doses of MenQuadfi run out.</li>
-            <li>Decrease in Flublok administration, requiring a strategy for next year.</li>
-        </ul>
+<footer>
+    © FY25–26 Pharmacy Business Operations • Internal Use Only
+</footer>
 
-        <h3>DSCSA Updates</h3>
-        <ul>
-            <li>All policies and standard work are in place.</li>
-            <li>Training completed for most IP pharmacists.</li>
-            <li>TraceLink feeds 80% of eligible data successfully; Cencora's data is delayed.</li>
-        </ul>
-
-        <h3>340B Updates</h3>
-        <ul>
-            <li>Rebate pilot and MFP enrollment completed with Beacon.</li>
-            <li>Contract pharmacy process review for impacted patients.</li>
-        </ul>
-
-        <h3>WCPC Updates</h3>
-        <ul>
-            <li>Releuko purchases started in November 2025, with a new tracker for cost savings visibility.</li>
-        </ul>
-
-        <h3>OUTPATIENT - TOP 20 by WAC</h3>
-        <ul>
-            <li>We will have updated information for the opportunities after we Supervisor meeting mid-December.</li>
-            <br>
-            <h4>Graph A: December Results by WAC purchases</h4>
-            <div class="graph-section">
-                <img src="graphA.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-            <br>
-            <h4>Table A: December Results by WAC purchases</h4>
-            <div class="graph-section">
-                <img src="tableA.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-        </ul>
-
-        <h3>INPATIENT - TOP 20 by WAC</h3>
-        <ul>
-            <li>Notes?</li>
-            <br>
-            <h4>Graph B: December Results by WAC purchases</h4>
-            <div class="graph-section">
-                <img src="graphB.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-            <br>
-            <h4>Table B: December Results by WAC purchases</h4>
-            <div class="graph-section">
-                <img src="tableB.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-        </ul>
-
-        <h3>INPATIENT - 340B PURCHASES</h3>
-        <ul>
-            <li>Notes?</li>
-            <br>
-            <h4>Table C: December Top 20 WAC purchases</h4>
-            <div class="graph-section">
-                <img src="tableC.jpg.png" alt="Financial Report Image" width="40%" style="margin-bottom: 30px;">
-            </div>
-        </ul>
-    </div>
+<!-- ===== LIGHTBOX ===== -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span>&times;</span>
+    <img id="lightbox-img">
+</div>
 
 </body>
 </html>
